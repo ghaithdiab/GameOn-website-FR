@@ -7,19 +7,23 @@ function editNav() {
   }
 }
 // 
+
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const closebg=document.querySelector('.close');
-var inputPrenom=document.getElementById('first');
-var inputNom=document.getElementById('last');
-var inputEmail=document.getElementById('email');
-var inputbirthdate=document.getElementById('birthdate');
-var inputQuantity=document.getElementById('quantity');
-var inputCity=document.querySelectorAll('input[name="location"]');
-var inputConditions=document.getElementById('checkbox1');
-var submitBtn=document.getElementById('sub');
+const inputPrenom=document.getElementById('first');
+const inputNom=document.getElementById('last');
+const inputEmail=document.getElementById('email');
+const inputbirthdate=document.getElementById('birthdate');
+const inputQuantity=document.getElementById('quantity');
+const inputCity=document.querySelectorAll('input[name="location"]');
+const inputConditions=document.getElementById('checkbox1');
+const submitBtn=document.getElementById('sub');
+const confrmation=document.querySelector('.confrmation-modal');
+const form=document.querySelector('form[name="reserve"]');
+const closebtn=document.querySelector('.btn-close');
 
 
 
@@ -27,14 +31,29 @@ var submitBtn=document.getElementById('sub');
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
+
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
-}
+  form.style.display="block";
+// Hide  message confrmation
+  confrmation.style.display="none";
+// Hide the message error 
+  for( var i of formData){
+    i.removeAttribute("data-error-visible");
+  }
 
-closebg.addEventListener('click',function(){ 
-    modalbg.style.display='none';
-});
+}
+// close modal and reset value
+function close(){
+  modalbg.style.display='none';
+  const array=[inputPrenom,inputNom,inputEmail,inputbirthdate,inputQuantity];
+  for(var i of array){
+    i.value="";
+  }
+}
+closebg.addEventListener('click',close());
+closebtn.addEventListener('click',close());
 
 // prenom input validation function
 function prenomValidation(){
@@ -43,6 +62,9 @@ function prenomValidation(){
   if(prenomInput.length < 2 || prenomInput ==""||regx.test(prenomInput)){
     formData[0].setAttribute("data-error-visible" ,"true");
     formData[0].setAttribute("data-error","le champ du Prenom pas valid");
+    return false;
+  }else{
+    return true;
   }
 }
 // Nom input validation function
@@ -52,7 +74,9 @@ function nomValidation(){
   if(nomInput.length < 2 || nomInput ==""||regx.test(nomInput)){
     formData[1].setAttribute("data-error-visible" ,"true");
     formData[1].setAttribute("data-error","le champ du Nom pas valid");
-    // inputNom.value=nomInput;
+    return false;
+  }else{
+    return true;
   }
 }
 // Email input validation function
@@ -63,7 +87,9 @@ function emailValidation(){
   if(regx.test(emailInput)==false){
     formData[2].setAttribute("data-error-visible" ,"true");
     formData[2].setAttribute("data-error","le champ du Email pas valid");
-    
+    return false;
+  }else{
+    return true;
   }
 }
 // birthdate input Validation
@@ -72,17 +98,20 @@ function birthdateValidation(){
   if(birthdateInput==""){
     formData[3].setAttribute("data-error-visible" ,"true");
     formData[3].setAttribute("data-error","Vous devez entrer votre date de naissance");
+    return false;
+  }else {
+    return true;
   }
 }
 // Quantity input Validation
 function quantityValidation(){
-  var quantityInput=inputQuantity.value;
-  console.log(Number.isInteger(quantityInput));
-  if(quantityInput==""|| Number.isInteger(quantityInput)==false || quantityInput < 0){
+  const quantityInput=Number(inputQuantity.value);
+  if(quantityInput==""|| Number.isInteger(quantityInput) ===false || quantityInput < 0){
     formData[4].setAttribute("data-error-visible" ,"true");
-    formData[4].setAttribute("data-error","Veuillez entrer un nombre Entier");
-    console.log(quantityInput);
-    console.log(Number.isInteger(quantityInput));
+    formData[4].setAttribute("data-error","Veuillez entrer un nombre Valid");
+    return false;
+  }else{
+    return true;
   }
 }
 
@@ -98,6 +127,9 @@ function cityValidation(){
     if(find==false){
       formData[5].setAttribute("data-error-visible" ,"true");
       formData[5].setAttribute("data-error","Vous devez choisir une option");  
+      return false;
+    }else{
+      return true;
     }
 }
 
@@ -106,21 +138,25 @@ function checkValidation(){
   if(inputConditions.checked==false){
     formData[6].setAttribute("data-error-visible" ,"true");
     formData[6].setAttribute("data-error","Vous devez vérifier que vous acceptez les termes et conditions");
+    return false;
+  }else{
+    return true;
   }
 }
-
+// chech validation form
 function validate(){
-  prenomValidation();
-  nomValidation();
-  emailValidation();
-  quantityValidation();
-  cityValidation();
-  checkValidation();
-  birthdateValidation();
+  var arr=[prenomValidation(),nomValidation(),
+            emailValidation(),quantityValidation(),
+            cityValidation(),checkValidation(),
+            birthdateValidation()];
+    if(!arr.some(v => !v)){
+      form.style.display="none";
+      confrmation.style.display="flex";
+    }
 }
-
 
 submitBtn.addEventListener('click',function(e){
   validate();
   e.preventDefault();
 });
+

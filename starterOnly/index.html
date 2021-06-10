@@ -16,17 +16,16 @@
       <div class="header-logo">
       <img alt="logo" src="Logo.png" width="auto" height="auto" />
     </div>
-    <div class="main-navbar">
-      
+    <a href="javascript:void(0);" class="icon" onclick="editNav()">
+      <i class="fa fa-bars"></i>
+    </a>
+    <nav class="main-navbar">
       <a href="#" class="active"><span>Accueil</span></a>
       <a href="#"><span>Détails de l'évènement</span></a>
       <a href="#"><span>À propos</span></a>
       <a href="#"><span>Contact</span></a>
       <a href="#"><span>Évènements passés</span></a>
-      <a href="javascript:void(0);" class="icon" onclick="editNav()">
-        <i class="fa fa-bars"></i>
-      </a>
-    </div>
+    </nav>
     </div>
   </div>
     <main>
@@ -56,6 +55,12 @@
         <div class="content">
           <span class="close"></span>
           <div class="modal-body">
+            <div class="confrmation-modal">
+                <div class="container-message">
+                  <p class="message">Merci !<br> Votre Reservation a été reçue!</p>
+                </div>
+                <input class="btn-close" type="button" class='button' value="Close"/>
+          </div>
             <form name="reserve" action="index.html" method="get" onsubmit="return validate();">
               <div class="formData">
                 <label for="first">Prénom</label><br>
