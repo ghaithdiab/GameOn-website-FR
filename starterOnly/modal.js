@@ -52,8 +52,8 @@ function close(){
     i.value="";
   }
 }
-closebg.addEventListener('click',close());
-closebtn.addEventListener('click',close());
+closebg.addEventListener('click',close);
+closebtn.addEventListener('click',close);
 
 // prenom input validation function
 function prenomValidation(){
