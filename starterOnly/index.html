@@ -14,9 +14,9 @@
   <body>
     <div class="topnav" id="myTopnav">
       <div class="header-logo">
-      <img alt="logo" src="Logo.png" width="auto" height="auto" />
+      <img alt="logo" src="Logo.png"/>
     </div>
-    <a href="javascript:void(0);" class="icon" onclick="editNav()">
+    <a href="#" class="icon">
       <i class="fa fa-bars"></i>
     </a>
     <nav class="main-navbar">
@@ -27,7 +27,6 @@
       <a href="#"><span>Évènements passés</span></a>
     </nav>
     </div>
-  </div>
     <main>
       <div class="hero-section">
         <div class="hero-content">
@@ -59,9 +58,9 @@
                 <div class="container-message">
                   <p class="message">Merci !<br> Votre Reservation a été reçue!</p>
                 </div>
-                <input class="btn-close" type="button" class='button' value="Close"/>
+                <input class="btn-close button" type="button" value="Close"/>
           </div>
-            <form name="reserve" action="index.html" method="get" onsubmit="return validate();">
+            <form name="reserve" action="index.html" method="get">
               <div class="formData">
                 <label for="first">Prénom</label><br>
                 <input class="text-control" type="text" id="first" name="first"/><br>
@@ -118,7 +117,7 @@
                   id="checkbox1"
                   checked
                 />
-                <label class="checkbox2-label" for="checkbox1" required>
+                <label class="checkbox2-label" for="checkbox1">
                   <span class="checkbox-icon"></span>
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
@@ -130,13 +129,7 @@
                 </label>
                 <br>
               </div>
-              <input
-                class="btn-submit"
-                type="submit"
-                class="button"
-                value="C'est parti"
-                id="sub"
-              />
+              <input class="btn-submit button" type="submit" value="C'est parti" id="sub"/>
             </form>
           </div>
         </div>
